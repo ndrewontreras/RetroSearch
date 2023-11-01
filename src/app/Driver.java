@@ -13,6 +13,7 @@ public class Driver {
         data.load();
         ArrayList<ToyotaVehicle> vehicleCatalog = data.getToyotaVehicleCatalog();
 
+        //This is the main user prompt to have them enter a valid search attribute
         System.out.printf("%40s %n%n", "\t\t\t----- RetroSearch -----\n\n" +
                 "------- Please enter one of the following: ------\n" +
                 "- • model year (e.g, '1985')   -\n" +
@@ -31,33 +32,33 @@ public class Driver {
         do {
             System.out.print("--- Please enter one of the attributes listed above: ");
             String userInput = input.nextLine();
-            for (int i = 0; i < vehicleCatalog.size(); i++) {
+            for (ToyotaVehicle toyotaVehicle : vehicleCatalog) {
                 if (userInput.equals("All")) {
-                    System.out.println(vehicleCatalog.get(i));
+                    System.out.println(toyotaVehicle);
                 } else if (userInput.equals("Quit")) {
                     userDone = true;
                 } else if (userInput.length() == 3) {
-                    if (vehicleCatalog.get(i).getModelCode().equals(userInput)) {
-                        System.out.println(vehicleCatalog.get(i));
+                    if (toyotaVehicle.getModelCode().equals(userInput)) {
+                        System.out.println(toyotaVehicle);
                     }
                 } else if (userInput.length() > 4) {
-                    if ((vehicleCatalog.get(i).getModelName()).equals(userInput)) {
-                        System.out.println(vehicleCatalog.get(i));
+                    if ((toyotaVehicle.getModelName()).equals(userInput)) {
+                        System.out.println(toyotaVehicle);
                     }
                 } else if (userInput.length() == 1) {
                     if (userInput.equals("Y")) {
-                        if (vehicleCatalog.get(i).isSedan()) {
-                            System.out.println(vehicleCatalog.get(i));
+                        if (toyotaVehicle.isSedan()) {
+                            System.out.println(toyotaVehicle);
                         }
                     } else if (userInput.equals("N")) {
-                        if (!vehicleCatalog.get(i).isSedan()) {
-                            System.out.println(vehicleCatalog.get(i));
+                        if (!toyotaVehicle.isSedan()) {
+                            System.out.println(toyotaVehicle);
                         }
                     }
                 } else if (isInt(userInput)) {
                     if (Integer.parseInt(userInput) < 1990 && Integer.parseInt(userInput) > 1979) {
-                        if ((vehicleCatalog.get(i).getModelYear()) == Integer.parseInt(userInput)) {
-                            System.out.println(vehicleCatalog.get(i));
+                        if ((toyotaVehicle.getModelYear()) == Integer.parseInt(userInput)) {
+                            System.out.println(toyotaVehicle);
                         }
                     }
                 }
@@ -71,7 +72,7 @@ public class Driver {
     public static boolean isInt(String s) {
         for (int a = 0; a < s.length(); a++) {
             if (a == 0 && s.charAt(a) == '-') {
-                continue;
+               return true;
             } else if (!Character.isDigit(s.charAt(a))) {
                 return false;
             }
